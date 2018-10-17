@@ -62,6 +62,7 @@ Thanks to all [contributors](https://github.com/orgs/OEHU/people).
 
 - [bartwr] - concept, coordination, development, communication
 - [ilhanu] - initiator, concept
+- [Jaron] - visual identity, together with StudioSpass
 - [mfahampshire] - concept, bigchaindb node setup, development
 - [liamzebedee] - testing of bounty platforms
 - [marijnbent] - design, development
