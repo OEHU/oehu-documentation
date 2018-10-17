@@ -28,6 +28,8 @@ We have set up 4 bigchain db nodes, running on DigitalOcean VPS's. We might add 
 
 We have created the [OEHU API](https://github.com/OEHU/oehu-api) for making it easier to query bigchaindb.
 
+The API connects with one of the bigchaindb nodes using `ssh root@IP -L 27018:localhost:27017`.
+
 ### OEHU WiFi Setup
 
 You'll connect a Raspberry Pi (or similar micro computer) to your smart meter. For this 'OEHU enabled device' we created some software.
