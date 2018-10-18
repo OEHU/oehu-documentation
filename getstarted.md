@@ -17,7 +17,7 @@ To be able to use OEHU to read the data of your smart meter you need the followi
 * Smart Meter cable (P1 cable); (available here: <https://www.sossolutions.nl/slimme-meter-kabel>)
 * Micro-SD card of 8GB. 
 
-We provide an one-stop shopping cart for your convenience. You can purchase everything you need here <link to shopping cart>. (SOSSolutions?)
+We provide an one-stop shopping package for your convenience. You can purchase everything you need here: <https://www.sossolutions.nl/raspberry-smartmeter-voor-oehu-leden>. (Thanks to SOSSolutions.nl!)
 
 When you have the right stuff, continue with part 2.
 
