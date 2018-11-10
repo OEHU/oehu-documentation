@@ -111,22 +111,6 @@ npm install
 
 Running `npm install` will cost some time. +- 15 minutes on RPi 3 B+.
 
-After installing, run the script:
-
-    npm start &
-
-If you are on the same network you can now access the API at http://oehu.local:8000
-
-Just check if the URL works. If so, close the browser tab, you don't need it.
-
-### Software needed for wifi gui
-
-    git clone https://github.com/OEHU/oehu-wifi-setup
-    cd oehu-wifi-setup
-    npm install
-    npm install react-scripts -g
-    npm run build
-
 ### Run stuff at startup
 
 Open a new terminal & connect to the Pi via ssh using: `ssh pi@oehu.local`.
@@ -146,6 +130,8 @@ pm2 startup
 sudo npm install -g http-server
 ```
 
+#### Configure oehu-setup-api
+
 Go to the oehu-setup-api: 
 
 ```
@@ -155,14 +141,28 @@ cd ~/oehu-setup-api
 In this folder, run:
 
 ```
-pm2 start sudo --no-automation --name oehu-api -- npm run start
+pm2 start sudo --no-automation --name oehu-setup-api -- npm run start
 ```
 
 In the oehu-setup-api folder run:
 
-```
-pm2 start sudo --no-automation --name oehu-wifi-gui -- http-server . -p 443 -S
-```
+#### Configure oehu-website
+
+Run the following commands to prepare the site:
+
+    cd ~/
+    git clone https://github.com/OEHU/oehu-website.git
+    cd oehu-website
+    git checkout setup
+    npm install
+    npm run build
+
+Now add this process to pm2:
+
+    cd build-copy
+    pm2 start sudo --no-automation --name oehu-website -- http-server . -p 80
+
+#### Run all pm2 programs on boot
 
 Make it run at boot
 
@@ -170,13 +170,35 @@ Make it run at boot
 pm2 save
 ```
 
-### Proxy
+### Make cron that automatically pulls updates from git
 
-Create proxy.
+Create `/home/pi/update.sh`:
 
-    wget https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-arm.zip
-    unzip ngrok-stable-linux-arm.zip
-    ~/ngrok start oehu-setup-api
+    touch ~/update.sh
+    chmod +x ~/update.sh
+
+Add contents to update.sh:
+
+    # Update oehu-setup-api
+    cd ~/oehu-setup-api
+    git pull
+    npm install
+
+    # Update oehu-website
+    cd ~/oehu-website
+    git pull
+    npm install
+    npm run build
+
+    # Restart pm2 processes
+    pm2 restart all
+
+Run `crontab -e`. Add:
+
+      0 6  *   *   1     /home/pi/update.sh
+      @reboot            /home/pi/update.sh
+
+Every 1st day of the week at 6:00am, the update script will run.
 
 ____
 

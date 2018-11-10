@@ -12,6 +12,8 @@ Install and configure your Pi like you want to. For example, use [this guide](ht
 
 Now, as soon as you have your OS configured like you wanted to, create root.tar based on your `/` directory:
 
+    cd /
+
     sudo tar -cpvf root.tar /bin /boot /debootstrap /dev /etc /home /lib /media /mnt /opt /proc /root /run /sbin /srv /sys /tmp /usr /var --exclude=proc/* --exclude=sys/* --exclude=dev/pts/*
 
 Now, create a boot.tar based on your `boot` folder:
@@ -83,3 +85,8 @@ If you ever want to SSH connect, open a terminal and type:
 
     ssh pi@oehu.local
 
+____
+
+For uploading the package to the server, use the following command:
+
+    rsync -avzhe ssh oehu-pi.zip vel@167.99.33.155:/var/www/downloads
