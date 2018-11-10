@@ -1,5 +1,44 @@
 # README on BigchainDB
 
+## Basics
+
+
+Configuration: `/root/.bigchaindb`
+
+Mongo config: `/etc/mongodb.conf`
+
+    mongo --port 27017 -u "user" -p "pass" --authenticationDatabase "admin"
+
+    use bigchain
+
+    db.createUser(
+      {
+        user: "bigchain-user",
+        pwd: "le-pass",
+        roles: [ { role: "readWrite", db: "bigchain" } ]
+      }
+    )
+
+db.createUser(
+  {
+    user: "admin",
+    pwd: "KnFmARCUNuiDRobwW3Zxz64Ze",
+    roles: [ { role: "root", db: "admin" } ]
+  }
+);
+
+db.grantRolesToUser( "oehu-admin", [ { role: "root", db: "admin" } ] )
+
+    mongo --port 27017 -u "oehu-admin" -p "pass" --authenticationDatabase "admin"
+
+Reloading bigchaindb:
+
+    sudo monit reload
+
+If ^ doesn't work:
+
+- Find the PID of the monit daemon & kill it + `monit -d 1`
+
 ## Using mongodb for querying bigchaindb data
 
 ### Get device info (household type, etc)
@@ -10,7 +49,7 @@ Remember `id`.
 
 ### Get all transactions:
 
-    db.getCollection('transactions').find({ id: "a11aa1aa1aaa111111a1a11aaaa1aaa1aaa111a1aa1aa1a1a11111a11a11a111" })
+    db.getCollection('transactions').find({"asset.id": "a11aa1aa1aaa111111a1a11aaaa1aaa1aaa111a1aa1aa1a1a11111a11a11a111"})
 
 Remember `id`.
 
