@@ -175,31 +175,13 @@ pm2 save
 
 ### Make cron that automatically pulls updates from git
 
-Create `/home/pi/update.sh`:
-
-    touch ~/update.sh
-    chmod +x ~/update.sh
-
-Add contents to update.sh:
-
-    # Update oehu-setup-api
-    cd ~/oehu-setup-api
-    git pull
-    npm install
-
-    # Update oehu-website
-    cd ~/oehu-website
-    git pull
-    npm install
-    npm run build
-
-    # Restart pm2 processes
-    pm2 restart all
+    cd ~/
+    git clone https://github.com/OEHU/oehu-update.git
 
 Run `crontab -e`. Add:
 
-      0 6  *   *   1     /home/pi/update.sh
-      @reboot            /home/pi/update.sh
+      0 6  *   *   1     /home/pi/oehu-update/update.sh
+      @reboot            /home/pi/oehu-update/update.sh
 
 Every 1st day of the week at 6:00am, the update script will run.
 
