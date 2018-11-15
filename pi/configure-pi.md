@@ -90,6 +90,11 @@ You need to reboot for the changes to take effect.
 
 After rebooting, connect to the Pi via ssh using: `ssh pi@oehu.local`
 
+### Change SWAP memory from 100MB to 1G
+
+1. Remove swap: `sudo swapoff -a`
+2. Add swap: [link](https://www.digitalocean.com/community/tutorials/how-to-add-swap-space-on-ubuntu-16-04)
+
 ### Software needed for data uploading
 
 Node 10.10 is tested and working steadily. Follow the instructions below to install node.
@@ -143,8 +148,6 @@ In this folder, run:
 ```
 pm2 start sudo --no-automation --name oehu-setup-api -- npm run start
 ```
-
-In the oehu-setup-api folder run:
 
 #### Configure oehu-website
 
