@@ -90,3 +90,24 @@ ____
 For uploading the package to the server, use the following command:
 
     rsync -avzhe ssh oehu-pi.zip vel@167.99.33.155:/var/www/downloads
+
+## DOCUMENTATION: Update OEHU image
+
+Once in a while developers can update the OEHU image. If you want to update OEHU, perform the following actions:
+
+        sudo apt-get update -y
+        sudo apt-get upgrade -y
+
+        ~/oehu-update/update.sh
+
+Also, check if SWAP is enabled and at least 400M:
+
+    sudo swapon --show
+
+Check if [rpimonitor](https://github.com/XavierBerger/RPi-Monitor) is installed.
+
+    whereis rpimonitor
+
+If not installed, install rpimonitor:
+
+    https://xavierberger.github.io/RPi-Monitor-docs/11_installation.html#installation-from-repository
